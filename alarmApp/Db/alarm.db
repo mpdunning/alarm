@@ -1,0 +1,311 @@
+#--- Laser ------------------------------------------
+record(calc, "$(P):LASER:HVAC") {
+  field(DESC, "Laser HVAC alarm summary")
+  field(INPA, "ESB:LSR_ROOM:TEMP:TABLE1.SEVR CPP")
+  field(INPB, "ESB:LSR_ROOM:TEMP:AIR.SEVR CPP")
+  field(INPC, "ESB:LSR_ROOM:TEMP:ENCLOSURE_AIR.SEVR CPP")
+  field(INPD, "ESB:LSR_ROOM:TEMP:HVAC_DUCT.SEVR CPP")
+  field(INPE, "ESB:LASER_ROOM:HUMIDITY.SEVR CPP")
+  field(CALC, "(A+B+C+D+E)>0")
+  field(FLNK, "$(P):LASER.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):LASER:CHILLERS") {
+  field(DESC, "Laser chillers alarm summary")
+  field(INPA, "ESB:CHILLER:REGEN1:FLOW.SEVR CPP")
+  field(INPB, "ESB:CHILLER:REGEN2:FLOW.SEVR CPP")
+  field(INPC, "ESB:CHILLER:REGEN3:FLOW.SEVR CPP")
+  field(INPD, "ESB:CHILLER:OSCILLATOR:FLOW.SEVR CPP")
+  field(INPE, "ESB:LSR_ROOM:TEMP:REGEN1_H2O.SEVR CPP")
+  field(INPF, "ESB:LSR_ROOM:TEMP:OSC_H2O.SEVR CPP")
+  field(INPG, "ESB:CHILLER:OSCILLATOR:STATUS:SUMMARY.SEVR CPP")
+  field(INPH, "ESB:CHILLER:OSCILLATOR:TEMP:SUMMARY.SEVR CPP")
+  field(CALC, "(A+B+C+D+E+F+G+H)>0")
+  field(FLNK, "$(P):LASER.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):LASER:MILLENNIA") {
+  field(DESC, "Millennia alarm summary")
+  field(INPA, "ESB:SPM01:DIODE:STATUS.SEVR CPP")
+  field(INPB, "ESB:SPM01:SHUTTER:STATUS.SEVR CPP")
+  field(INPC, "ESB:SPM01:POWER.SEVR CPP")
+  field(INPD, "ESB:SPM01:DIODE:I.SEVR CPP")
+  field(INPE, "ESB:SPM01:DIODE:TEMP.SEVR CPP")
+  field(CALC, "(A+B+C+D+E)>0")
+  field(FLNK, "$(P):LASER.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):LASER:RFLOCK") {
+  field(DESC, "RF Lock alarm summary")
+  field(INPA, "ESB:SIM900:P1:EMON.SEVR CPP")
+  field(CALC, "(A)>0")
+  field(FLNK, "$(P):LASER.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):LASER") {
+  field(DESC, "Laser alarm summary")
+  field(INPA, "$(P):LASER:HVAC")
+  field(INPB, "$(P):LASER:CHILLERS")
+  field(INPC, "$(P):LASER:MILLENNIA")
+  field(INPD, "$(P):LASER:RFLOCK")
+  field(CALC, "(A+B+C+D)>0")
+  field(FLNK, "$(P):NLCTA.PROC")
+}
+#--- Magnets ------------------------------------------
+record(calc, "$(P):MAG:QUAD:01") {
+  field(DESC, "Quad summary 1")
+  field(INPA, "ESB:QUAD:480:BI:ERROR CPP")
+  field(INPB, "ESB:QUAD:530:BI:ERROR CPP")
+  field(INPC, "ESB:QUAD:560:BI:ERROR CPP")
+  field(INPD, "ESB:QUAD:575:BI:ERROR CPP")
+  field(INPE, "ESB:QUAD:590:BI:ERROR CPP")
+  field(INPF, "ESB:QUAD:1030:BI:ERROR CPP")
+  field(INPG, "ESB:QUAD:1070:BI:ERROR CPP")
+  field(INPH, "ESB:QUAD:1110:BI:ERROR CPP")
+  field(INPI, "ESB:QUAD:1130:BI:ERROR CPP")
+  field(INPJ, "ESB:QUAD:1250:BI:ERROR CPP")
+  field(INPK, "ESB:QUAD:1350:BI:ERROR CPP")
+  field(INPL, "ESB:QUAD:1375:BI:ERROR CPP")
+  field(CALC, "(A+B+C+D+E+F+G+H+I+J+K+L)>0")
+  field(FLNK, "$(P):MAGNET:QUAD.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):MAG:QUAD:02") {
+  field(DESC, "Quad summary 2")
+  field(INPA, "ESB:QUAD:1400:BI:ERROR CPP")
+  field(INPB, "ESB:QUAD:1490:BI:ERROR CPP")
+  field(INPC, "ESB:QUAD:1570:BI:ERROR CPP")
+  field(INPD, "ESB:QUAD:1640:BI:ERROR CPP")
+  field(INPE, "ESB:QUAD:1720:BI:ERROR CPP")
+  field(INPF, "ESB:QUAD:1790:BI:ERROR CPP")
+  field(INPG, "ESB:QUAD:1860:BI:ERROR CPP")
+  field(INPH, "ESB:QUAD:1940:BI:ERROR CPP")
+  field(INPI, "ESB:QUAD:2020:BI:ERROR CPP")
+  field(INPJ, "ESB:QUAD:2050:BI:ERROR CPP")
+  field(INPK, "ESB:QUAD:2070:BI:ERROR CPP")
+  field(CALC, "(A+B+C+D+E+F+G+H+I+J+K)>0")
+  field(FLNK, "$(P):MAG:QUAD.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):MAG:QUAD") {
+  field(DESC, "Quad alarm summary")
+  field(INPA, "$(P):MAG:QUAD:01")
+  field(INPB, "$(P):MAG:QUAD:02")
+  field(CALC, "(A+B)>0")
+  field(FLNK, "$(P):MAGNET.PROC")
+}
+record(calc, "$(P):MAGNET") {
+  field(DESC, "Magnet alarm summary")
+  field(INPA, "$(P):MAG:QUAD")
+  field(CALC, "(A)>0")
+  field(FLNK, "$(P):NLCTA.PROC")
+}
+#--- Vacuum ------------------------------------------
+record(calc, "$(P):VAC:PUMP:01") {
+  field(DESC, "Vac pump summary 1")
+  field(INPA, "ESB:AVAC01:I:CH1.SEVR CPP")
+  field(INPB, "ESB:AVAC01:I:CH2.SEVR CPP")
+  field(INPC, "ESB:AVAC01:I:CH3.SEVR CPP")
+  field(INPD, "ESB:AVAC01:I:CH4.SEVR CPP")
+  field(CALC, "(A+B+C+D)>0")
+  field(FLNK, "$(P):VACUUM.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):VAC:PUMP:02") {
+  field(DESC, "Vac pump summary 2")
+  #field(INPA, "ESB:AVAC02:I:CH1.SEVR CPP")
+  #field(INPB, "ESB:AVAC02:I:CH2.SEVR CPP")
+  #field(INPC, "ESB:AVAC02:I:CH3.SEVR CPP")
+  #field(INPD, "ESB:AVAC02:I:CH4.SEVR CPP")
+  field(CALC, "(A+B+C+D)>0")
+  field(FLNK, "$(P):VACUUM.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):VAC:PUMP:03") {
+  field(DESC, "Vac pump summary 3")
+  field(INPA, "ESB:AVAC03:I:CH1.SEVR CPP")
+  field(INPB, "ESB:AVAC03:I:CH2.SEVR CPP")
+  field(INPC, "ESB:AVAC03:I:CH3.SEVR CPP")
+  #field(INPD, "ESB:AVAC03:I:CH4.SEVR CPP")
+  field(INPE, "ESB:AVAC03:I:OVERSP:CH1 CPP")
+  field(INPF, "ESB:AVAC03:I:OVERSP:CH2 CPP")
+  field(INPG, "ESB:AVAC03:I:OVERSP:CH3 CPP")
+  field(INPH, "ESB:AVAC03:I:OVERSP:CH4 CPP")
+  field(CALC, "(A+B+C+D+E+F+G+H)>0")
+  field(FLNK, "$(P):VACUUM.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):VAC:PUMP:10") {
+  field(DESC, "Vac pump summary 10")
+  field(INPA, "ESB:GVAC01:CH1:I.SEVR CPP")
+  field(INPB, "ESB:GVAC01:CH2:I.SEVR CPP")
+  field(INPC, "ESB:GVAC01:CH1:PSTAT1MON CPP")
+  field(INPD, "ESB:GVAC01:CH2:PSTAT1MON CPP")
+  field(CALC, "(A+B)>0 | (C+D)<2")
+  field(FLNK, "$(P):VACUUM.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):VAC:PUMP:11") {
+  field(DESC, "Vac pump summary 11")
+  field(INPA, "ESB:GVAC02:CH1:I.SEVR CPP")
+#  field(INPB, "ESB:GVAC02:CH2:I.SEVR CPP")
+  field(INPC, "ESB:GVAC02:CH1:PSTAT1MON CPP")
+#  field(INPD, "ESB:GVAC02:CH2:PSTAT1MON CPP")
+#  field(CALC, "(A+B)>0 | (C+D)<2")
+  field(CALC, "(A)>0 | (C)<1")
+  field(FLNK, "$(P):VACUUM.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):VACUUM") {
+  field(DESC, "Vacuum alarm summary")
+  field(INPA, "$(P):VAC:PUMP:01")
+  field(INPB, "$(P):VAC:PUMP:02")
+  field(INPC, "$(P):VAC:PUMP:03")
+  field(INPD, "$(P):VAC:PUMP:10")
+  field(INPE, "$(P):VAC:PUMP:11")
+  field(CALC, "(A+B+C+D+E)>0")
+  field(FLNK, "$(P):NLCTA.PROC")
+}
+#--- RF ------------------------------------------
+record(calc, "$(P):RF:ST3:MOD") {
+  field(DESC, "Station 3 modulator")
+  field(INPA, "TRS3:KLY6:FAULT:STATUS.SEVR CPP")
+  field(INPB, "TRS3:MOD:FAULT:STATUS.SEVR CPP")
+  field(INPC, "TRS3:IFACE:STAT.SEVR CPP")
+#  field(INPD, "TRS3:HVPS:FAULT:STATUS CPP")
+  field(CALC, "(A+B+C)>0")
+  field(FLNK, "$(P):RF:ST3.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):RF:ST3:IPAD") {
+  field(DESC, "Station 3 ipad")
+  field(INPA, "EIOC:ESB:PAD033:TST_N_STATE.SEVR CPP")
+  field(CALC, "(A)>0")
+  field(FLNK, "$(P):RF:ST3.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):RF:ST3") {
+  field(DESC, "Station 3 summary")
+  field(INPA, "$(P):RF:ST3:MOD")
+  field(INPB, "$(P):RF:ST3:IPAD")
+  field(CALC, "(A+B)>0")
+  field(FLNK, "$(P):RF.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):RF") {
+  field(DESC, "RF alarm summary")
+  field(INPA, "$(P):RF:ST3")
+  field(CALC, "(A)>0")
+  field(FLNK, "$(P):NLCTA.PROC")
+}
+#--- Profile monitor ------------------------------------------
+record(calc, "$(P):PROF:01") {
+  field(DESC, "Profile monitor summary 1")
+  field(INPA, "ESB:BO:2114-10:BIT7 CPP")
+  field(INPB, "ESB:BO:2114-10:BIT5 CPP")
+  field(INPC, "ESB:BO:2114-10:BIT2 CPP")
+  field(INPD, "ESB:BO:2114-10:BIT3 CPP")
+  field(INPE, "ESB:BO:2114-13:BIT4 CPP")
+  field(INPF, "ESB:BO:2114-13:BIT6 CPP")
+  field(INPG, "ESB:BO:2114-13:BIT5 CPP")
+  field(INPH, "ESB:BO:2114-13:BIT2 CPP")
+  field(INPI, "ESB:BO:2114-14:BIT1 CPP")
+  field(INPK, "ESB:BO:2114-14:BIT2 CPP")
+  field(INPJ, "ESB:BO:2114-1:BIT1 CPP")
+  field(INPL, "ESB:BO:2114-1:BIT4 CPP")
+  field(CALC, "(A+B+C+D+E+F+G+H+I+J+K+L)>0")
+  field(FLNK, "$(P):PROF.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):PROF:02") {
+  field(DESC, "Profile monitor summary 2")
+  field(INPA, "ESB:BO:2114-1:BIT6 CPP")
+  field(INPB, "ESB:BO:2114-1:BIT7 CPP")
+  field(INPC, "ESB:BO:2114-1:BIT8 CPP")
+  #field(INPD, "ESB:BO:2114-11:BIT1 CPP")
+  field(INPE, "ESB:BO:2114-11:BIT2 CPP")
+  field(INPF, "ESB:BO:2114-11:BIT3 CPP")
+  field(INPG, "ESB:BO:2114-11:BIT4 CPP")
+  field(INPH, "ESB:BO:2114-11:BIT5 CPP")
+  field(INPI, "ESB:BO:2114-11:BIT6 CPP")
+  field(INPJ, "ESB:BO:2114-11:BIT7 CPP")
+  field(INPK, "ESB:BO:2114-11:BIT8 CPP")
+  field(CALC, "(A+B+C+E+F+G+H+I+J+K)>0")
+  field(FLNK, "$(P):PROF.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):PROF:03") {
+  field(DESC, "Profile monitor summary 3")
+  field(INPA, "ESB:BO:2114-18:BIT1 CPP")
+  field(INPB, "ESB:BO:2114-18:BIT2 CPP")
+  field(INPC, "ESB:BO:2114-18:BIT3 CPP")
+  field(INPD, "ESB:BO:2114-18:BIT4 CPP")
+  field(CALC, "(A+B+C+D)>0")
+  field(FLNK, "$(P):PROF.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):PROF") {
+  field(DESC, "Profile monitor summary")
+  field(INPA, "$(P):PROF:01")
+  field(INPB, "$(P):PROF:02")
+  field(INPC, "$(P):PROF:03")
+  field(CALC, "(A+B+C)>0")
+  field(FLNK, "$(P):PROF:STATUS.PROC")
+}
+record(bi, "$(P):PROF:STATUS") {
+  field(DESC, "Profile monitor status")
+  field(INP,  "$(P):PROF")
+  field(ZNAM, "Out")
+  field(ONAM, "In")
+}
+#--- Device ping ------------------------------------------
+record(calc, "$(P):PING:01") {
+  field(DESC, "Ping 1")
+  field(INPA, "ESB:GP01:PING:HOST1.SEVR CPP")
+  field(INPB, "ESB:GP01:PING:HOST2.SEVR CPP")
+  field(INPC, "ESB:GP01:PING:HOST3.SEVR CPP")
+  field(INPD, "ESB:GP01:PING:HOST4.SEVR CPP")
+  field(INPE, "ESB:GP01:PING:HOST5.SEVR CPP")
+  field(INPF, "ESB:GP01:PING:HOST6.SEVR CPP")
+  field(INPG, "ESB:GP01:PING:HOST7.SEVR CPP")
+  field(INPH, "ESB:GP01:PING:HOST8.SEVR CPP")
+  field(INPI, "ESB:GP01:PING:HOST9.SEVR CPP")
+  field(INPJ, "ESB:GP01:PING:HOST10.SEVR CPP")
+  field(INPK, "ESB:GP01:PING:HOST11.SEVR CPP")
+  field(INPL, "ESB:GP01:PING:HOST12.SEVR CPP")
+  field(CALC, "(A+B+C+D+E+G+H+I+J+K+L)>0")
+  field(FLNK, "$(P):PING.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):PING:02") {
+  field(DESC, "Ping 2")
+  field(INPA, "ESB:GP01:PING:HOST13.SEVR CPP")
+  field(CALC, "(A)>0")
+  field(FLNK, "$(P):PING.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):PING") {
+  field(DESC, "Ping summary")
+  field(INPA, "$(P):PING:01")
+  field(INPB, "$(P):PING:02")
+  field(CALC, "(A+B)>0")
+  field(FLNK, "$(P):MORE.PROC")
+  field(PINI, "1")
+}
+record(calc, "$(P):MORE") {
+  field(DESC, "More summary")
+  field(INPA, "$(P):PING")
+  field(CALC, "(A)>0")
+  field(FLNK, "$(P):NLCTA.PROC")
+  field(PINI, "1")
+}
+#--- NLCTA summary ------------------------------------------
+record(calc, "$(P):NLCTA") {
+  field(DESC, "NLCTA alarm summary")
+  field(INPA, "$(P):LASER")
+  field(INPB, "$(P):MAGNET")
+  field(INPC, "$(P):VACUUM")
+  field(INPD, "$(P):RF")
+  field(INPD, "$(P):PING")
+  field(CALC, "(A+B+C+D)>0")
+}
